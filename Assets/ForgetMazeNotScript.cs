@@ -398,7 +398,9 @@ public class ForgetMazeNotScript : MonoBehaviour
 				if (ct == CellType.Normal || ct == CellType.Solution || ct == CellType.Wall || ct == CellType.Stage)
 				{
 					var ctName = new[] {"Normal", "Green", "Red", "Yellow", "Blue", "Magenta", "Cyan"}[(int) ct];
-					DebugLog("{0}: ({1}) {2}", ctName, CoordinateToString(cell._coordinate1), ct == CellType.Stage ? cell._stage.ToString() : cell._data);
+					var cell1 = cell;
+					string walls = ct == CellType.Wall ? new[] {"N", "E", "S", "W"}.Where(d => !cell1._data.Contains(d)).Join("") : cell._data;
+					DebugLog("{0}: ({1}) {2}", ctName, CoordinateToString(cell._coordinate1), ct == CellType.Stage ? cell._stage.ToString() : walls);
 				}
 				else if (ct == CellType.Interactive)
 				{
@@ -600,6 +602,7 @@ public class ForgetMazeNotScript : MonoBehaviour
 		{
 			StopCoroutine(_displayCoroutine);
 			_interactive = true;
+			_lastMinigame = _currentCell.CellType;
 			
 			audio.PlaySoundAtTransform("Special", transform);
 			
@@ -702,6 +705,7 @@ public class ForgetMazeNotScript : MonoBehaviour
 			}
 			else
 			{
+				_minigameSolve = true;
 				audio.PlaySoundAtTransform("Good", transform);
 			}
 			
@@ -886,6 +890,7 @@ public class ForgetMazeNotScript : MonoBehaviour
 				if (_currentPos.x < 0 || _currentPos.x > 4 || _currentPos.y < 0 || _currentPos.y > 4) // Check if they escaped the maze
 				{
 					_disableArrows = true;
+					_minigameSolve = true;
 					audio.PlaySoundAtTransform("Good", transform);
 					StartCoroutine(WaitForAnimationThenReset());
 				}
@@ -1074,6 +1079,9 @@ public class ForgetMazeNotScript : MonoBehaviour
 #pragma warning disable 414
 	string TwitchHelpMessage = "Use '!{0} [color]' to press the middle button on that color. Use '!{0} [directions]' to press the buttons, using 'M' as the middle button. You can chain the commands using space. Example: '!{0} cyan UDRL NSEW M'";
 #pragma warning restore 414
+
+	private bool _minigameSolve = false;
+	private CellType _lastMinigame;
 	
 	IEnumerator ProcessTwitchCommand(string command)
 	{
@@ -1176,6 +1184,13 @@ public class ForgetMazeNotScript : MonoBehaviour
 						}
 						
 						yield return new WaitForSeconds(pauseTime);
+					}
+					
+					if (_minigameSolve)
+					{
+						var points = new[] {0, 0, 1, 1, 1, 1, 1};
+						yield return "awardpoints " + points[(int) _lastMinigame];
+						_minigameSolve = false;
 					}
 				}
 			}
