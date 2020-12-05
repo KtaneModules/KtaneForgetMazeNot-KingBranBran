@@ -20,14 +20,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="43fd7866-dafe-4d0e-94a2-ce8f1b58e53d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/D-Battery.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/D-Battery.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GeneralExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GeneralExtensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TestHarness/Materials/HighlightOverlay.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TestHarness/Materials/HighlightOverlay.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TestHarness/TestHarness.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TestHarness/TestHarness.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Manual/Template Manual.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Manual/img/Component/Module Name.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.ForgetMazeNot/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ForgetMazeNot/.idea/contentModel.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.ForgetMazeNot/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ForgetMazeNot/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ForgetMazeNotScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ForgetMazeNotScript.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Maze.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Maze.unity" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,21 +34,20 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Assets/ForgetMazeNotScript.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../KTANE64/Assets/SixtyFourScript.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/MazeGenerator.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/C6FCDEE9-2542-45A7-95E3-D54D39A4FD0B/83/d13ad599/KMBombModule.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/ECB5D8E2-0A91-44BC-A4F2-58317D1E56F9/32/d8b21767/List`1.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/864B4170-D3A4-4E18-8F41-B725DBF073A8/71/6268477d/Color.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/864B4170-D3A4-4E18-8F41-B725DBF073A8/64/8747e433/Transform.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/ECB5D8E2-0A91-44BC-A4F2-58317D1E56F9/43/72009a67/Single.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/MazeGenerator.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../../Timwi/KtaneMouseInTheMaze/Assets/MouseCamera.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/864B4170-D3A4-4E18-8F41-B725DBF073A8/01/4f919536/Vector2.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/864B4170-D3A4-4E18-8F41-B725DBF073A8/30/b421350d/Random.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/864B4170-D3A4-4E18-8F41-B725DBF073A8/61/2bbc1457/GameObject.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/A9627032-6887-4EDC-9774-216522BE7D07/40/c04f86d1/Func`5.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/864B4170-D3A4-4E18-8F41-B725DBF073A8/50/59c8e036/FilterMode.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../KTANE64/Assets/SixtyFourScript.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/864B4170-D3A4-4E18-8F41-B725DBF073A8/94/814d7a39/Vector3.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/ForgetMazeNotScript.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/864B4170-D3A4-4E18-8F41-B725DBF073A8/87/416d8e1a/Mesh.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
@@ -123,6 +118,8 @@
       <workItem from="1606444256616" duration="836000" />
       <workItem from="1606523155165" duration="19581000" />
       <workItem from="1606691477834" duration="16685000" />
+      <workItem from="1606759865339" duration="884000" />
+      <workItem from="1606847195627" duration="670000" />
     </task>
     <servers />
   </component>

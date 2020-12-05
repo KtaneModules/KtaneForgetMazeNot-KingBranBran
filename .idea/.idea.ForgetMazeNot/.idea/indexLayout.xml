@@ -11,6 +11,7 @@
       <Path>.idea</Path>
       <Path>Library</Path>
       <Path>Manual</Path>
+      <Path>Temp</Path>
       <Path>UnityPackageManager</Path>
       <Path>build</Path>
       <Path>obj</Path>

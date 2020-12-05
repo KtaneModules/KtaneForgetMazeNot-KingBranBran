@@ -199,8 +199,7 @@ public class ForgetMazeNotScript : MonoBehaviour
 
 		_init = true;
 		
-		var ignoredModules = boss.GetIgnoredModules(module);
-		_stages = testing ? modules : info.GetSolvableModuleNames().Count(m => !ignoredModules.Contains(m) && !m.Equals("Forget Maze Not"));
+		_stages = testing ? modules : info.GetSolvableModuleNames().Count(m => !_ignoredModules.Contains(m) && !m.Equals("Forget Maze Not"));
 
 		var multiplier = 3;
 
