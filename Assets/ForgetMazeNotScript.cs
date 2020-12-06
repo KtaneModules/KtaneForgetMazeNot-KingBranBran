@@ -39,6 +39,7 @@ public class ForgetMazeNotScript : MonoBehaviour
 	private int _height;
 	
 	private string[] _ignoredModules;
+	private string[] _ignoreModuleListRepo;
 	
 	private readonly List<string> _solution = new List<string>();
 	
@@ -73,6 +74,8 @@ public class ForgetMazeNotScript : MonoBehaviour
 	{
 		_moduleNumber = _moduleCounter++;
 
+		_ignoreModuleListRepo = boss.GetIgnoredModules(module);
+		
 		if (_light == null)
 		{
 			_light = Instantiate(mazeLight);
@@ -187,7 +190,7 @@ public class ForgetMazeNotScript : MonoBehaviour
 	void Setup()
 	{
 		_ignoredModules = info.GetSolvableModuleNames()
-			.Where(m => boss.GetIgnoredModules(module).Contains(m) || m.Equals("Forget Maze Not") || _ignoreModulesList.Contains(m)).ToArray();
+			.Where(m => _ignoreModuleListRepo.Contains(m) || _ignoreModulesList.Contains(m)).ToArray();
 		
 		if (!testing && _ignoredModules.Length == info.GetSolvableModuleNames().Count)
 		{
@@ -1334,6 +1337,7 @@ public class ForgetMazeNotScript : MonoBehaviour
 		"Turn The Key",
 		"Ultimate Custom Night",
 		"Übermodule",
-		"Whiteout"
+		"Whiteout",
+		"Forget Maze Not"
 	};
 }
