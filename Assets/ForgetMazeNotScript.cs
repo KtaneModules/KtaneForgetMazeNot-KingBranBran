@@ -750,24 +750,28 @@ public class ForgetMazeNotScript : MonoBehaviour
 	{
 		mazeDisplayer.Init(_width, _height, wall, wallMat, camera);
 		mazeDisplayer.StartDrawingMaze(_maze);
-		
+
 		var goalx = (_width - 1) / 2f;
 		var goaly = (_height - 1) / 2f;
 
-		const float duration = 2.5f;
+		var duration = 3.9f;
+
+		StartCoroutine(DoAnimation(camera.transform, duration, Easing.InOutSine, new Vector3(goalx, -goaly, -10),
+			new Vector3(goalx, -goaly, -50)));
 
 		float time = 0f;
-		var h = 0f;
-		while (true)
+		var h = Random.Range(0, 256) / 255f;
+		while (time < duration)
 		{
-			camera.transform.localPosition = new Vector3(goalx, -goaly, Easing.InOutSine(time, -10, -50, duration));
 			time += Time.deltaTime;
-			time %= duration * 2;
+			time %= 5f * 2;
 			
-			wallMat.color = Color.HSVToRGB((h += Time.deltaTime * 10) % 255 / 255, 130 / 255f, 1);
+			wallMat.color = Color.HSVToRGB((h += Time.deltaTime * 5) % 255 / 255, 130 / 255f, 1);
 			h %= 255;
 			yield return null;
 		}
+		
+		mazeDisplayer.StopDrawingMaze();
 		// ReSharper disable once IteratorNeverReturns
 	}
 
@@ -1188,7 +1192,7 @@ public class ForgetMazeNotScript : MonoBehaviour
 					
 					if (_minigameSolve)
 					{
-						var points = new[] {0, 0, 1, 1, 1, 1, 1};
+						var points = new[] {0, 0, 2, 1, 1, 3, 3};
 						yield return "awardpoints " + points[(int) _lastMinigame];
 						_minigameSolve = false;
 					}
