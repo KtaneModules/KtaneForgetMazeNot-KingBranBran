@@ -69,6 +69,9 @@ public class ForgetMazeNotScript : MonoBehaviour
 	{
 		_cellText.text = "";
 		_stageText.text = "";
+		
+		if (!Application.isEditor)
+			testing = false;
 	}
 
 	void Start()
@@ -333,8 +336,8 @@ public class ForgetMazeNotScript : MonoBehaviour
 			// 	break;
 			// }
 
-			// var availableSpecials = Enumerable.Range(0, 5).ToList().Shuffle();
-			var availableSpecials = new List<int>() {2};
+			var availableSpecials = Enumerable.Range(0, 5).ToList().Shuffle();
+			// var availableSpecials = new List<int>() {2};
 			// Randomly add the special stages
 			for (var n = 0; n < amountOfSpecialCells; n++)
 			{
