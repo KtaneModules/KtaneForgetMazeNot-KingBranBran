@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -81,6 +82,8 @@ public class ForgetMazeNotScript : MonoBehaviour
 			_light = Instantiate(mazeLight);
 			_light.GetComponent<Light>().cullingMask = 1 << 30;
 			_light.name = "FZNLight";
+			float scalar = transform.lossyScale.x;
+			_light.GetComponent<Light>().range *= scalar;
 		}
 
 		// Need to generate a new material so that there isn't conflict between multiple instances of this module.
@@ -91,7 +94,8 @@ public class ForgetMazeNotScript : MonoBehaviour
 		submitActive = false;
 		
 		// Setup camera
-		var renderTexture = new RenderTexture(512, 512, 24) {filterMode = FilterMode.Point, isPowerOfTwo = true};
+		var size = (int) Math.Pow(2, 6);
+		var renderTexture = new RenderTexture(size, size, 24) {filterMode = FilterMode.Point, isPowerOfTwo = true};
 		camera.targetTexture = renderTexture;
 		
 		var surfaceMat = transform.Find("Static/FixedSurface").GetComponent<MeshRenderer>().material;
@@ -329,7 +333,8 @@ public class ForgetMazeNotScript : MonoBehaviour
 			// 	break;
 			// }
 
-			var availableSpecials = Enumerable.Range(0, 5).ToList().Shuffle();
+			// var availableSpecials = Enumerable.Range(0, 5).ToList().Shuffle();
+			var availableSpecials = new List<int>() {2};
 			// Randomly add the special stages
 			for (var n = 0; n < amountOfSpecialCells; n++)
 			{
@@ -354,15 +359,27 @@ public class ForgetMazeNotScript : MonoBehaviour
 							stageCells.Add(new FmnCell(randomCell._coordinate1, randomCell._data, CellType.Wall));
 						}
 						break;
-					case 2: // Stage
+					case 2: // Coords
 						if (currentStage != 0)
 						{
 							var randomStage = Random.Range(0, currentStage);
 							var randomCell = _stageData[randomStage].Cells
 								.Where(c => c.CellType == CellType.Solution || c.CellType == CellType.Normal)
 								.PickRandom();
+							
+							var coordArray = Random.Range(0, 2) == 0
+								? new[]
+								{
+									GeneralExtensions.DecimalToArbitrarySystem((long) randomCell._coordinate1.x, 26).Replace('0', 'A'),
+									"?"
+								}
+								: new[]
+								{
+									"?",
+									"" + ((int) randomCell._coordinate1.y + 1)
+								};
 
-							stageCells.Add(new FmnCell(randomCell._coordinate1, randomStage));
+							stageCells.Add(new FmnCell(randomCell._data, coordArray));
 						}
 						break;
 					case 3: // Maze
@@ -398,12 +415,12 @@ public class ForgetMazeNotScript : MonoBehaviour
 			foreach (var cell in _stageData[i].Cells)
 			{
 				var ct = cell.CellType;
-				if (ct == CellType.Normal || ct == CellType.Solution || ct == CellType.Wall || ct == CellType.Stage)
+				if (ct == CellType.Normal || ct == CellType.Solution || ct == CellType.Wall || ct == CellType.Coord)
 				{
 					var ctName = new[] {"Normal", "Green", "Red", "Yellow", "Blue", "Magenta", "Cyan"}[(int) ct];
 					var cell1 = cell;
 					string walls = ct == CellType.Wall ? new[] {"N", "E", "S", "W"}.Where(d => !cell1._data.Contains(d)).Join("") : cell._data;
-					DebugLog("{0}: ({1}) {2}", ctName, CoordinateToString(cell._coordinate1), ct == CellType.Stage ? cell._stage.ToString() : walls);
+					DebugLog("{0}: ({1}) {2}", ctName, ct == CellType.Coord ? cell._coord.Join("") : CoordinateToString(cell._coordinate1), walls);
 				}
 				else if (ct == CellType.Interactive)
 				{
@@ -483,9 +500,14 @@ public class ForgetMazeNotScript : MonoBehaviour
 						break;
 					
 					case CellType.Wall:
-					case CellType.Stage:
-						color = cell.CellType == CellType.Wall ? Color.yellow : new Color(55, 55, 255, 255) / 255; // A lighter blue.
+						color = Color.yellow; // A lighter blue.
 						text = CoordinateToString(cell._coordinate1);
+						break;
+					
+					case CellType.Coord:
+						color = new Color(55, 55, 255, 255) / 255; // A lighter blue.
+						wallData = cell._data;
+						text = cell._coord.Join("");
 						break;
 					
 					case CellType.Maze:
@@ -618,8 +640,8 @@ public class ForgetMazeNotScript : MonoBehaviour
 					break;
 				case CellType.Wall:
 					break;
-				case CellType.Stage:
-					_stageText.text = "0";
+				case CellType.Coord:
+					_stageText.text = _currentCell._coord[0].Equals("?") ? "A" : "0";
 					break;
 				case CellType.Maze:
 					submit.gameObject.SetActive(false);
@@ -685,10 +707,33 @@ public class ForgetMazeNotScript : MonoBehaviour
 					var playerInput = arrows.Select((a, i) => a.GetComponent<SpriteRenderer>().color == Color.yellow ? i + 1 : -(i + 1)).Where(n => n >= 0).Select(n => directions[n - 1]).Join("");
 					msg2 = String.Format("Looking for {0}, but got {1}", expected, playerInput);
 					break;
-				case CellType.Stage:
-					success = int.Parse(_stageText.text) == _currentCell._stage;
+				case CellType.Coord:
+					int number;
+					Vector2 inputCoord;
+					var isLetterCoord = !int.TryParse(_stageText.text, out number);
+					if (isLetterCoord)
+					{
+						number = (int) GeneralExtensions.BackToDecimal(_stageText.text) - 1;
+						inputCoord = new Vector2(number, int.Parse(_currentCell._coord[1]) - 1);
+					}
+					else
+					{
+						number -= 1; // Put the number into zero index.
+						inputCoord = new Vector2(GeneralExtensions.BackToDecimal(_currentCell._coord[0]) - 1, number);
+					}
+
+					bool badCoords = inputCoord.x > _width - 1 || inputCoord.y > _height - 1;
+
+					string coordWalls = "WHAT?!";
+					if (!badCoords)
+					{
+						coordWalls = _maze[(int) inputCoord.x, (int) inputCoord.y];
+					}
+					
+					success = !badCoords && _currentCell._data.All(c => coordWalls.Contains(c)) &&
+					          _currentCell._data.Length == coordWalls.Length;
 					msg = "Blue";
-					msg2 = String.Format("Looking for {0}, but got {1}", _currentCell._stage, int.Parse(_stageText.text));
+					msg2 = String.Format("Looking for {0}, but got {1} ({2})", _currentCell._data, coordWalls, CoordinateToString(inputCoord));
 					break;
 				case CellType.Maze:
 					msg = "Magenta";
@@ -759,11 +804,11 @@ public class ForgetMazeNotScript : MonoBehaviour
 
 		var duration = 3.9f;
 
-		StartCoroutine(DoAnimation(camera.transform, duration, Easing.InOutSine, new Vector3(goalx, -goaly, -10),
-			new Vector3(goalx, -goaly, -50)));
+		StartCoroutine(DoAnimation(camera.transform, duration, Easing.InOutSine, new Vector3(goalx, -goaly, 0),
+			new Vector3(goalx, -goaly, -0.25f * _stages - 10)));
 
 		float time = 0f;
-		var h = Random.Range(0, 256) / 255f;
+		var h = (float) Random.Range(0, 256);
 		while (time < duration)
 		{
 			time += Time.deltaTime;
@@ -823,22 +868,32 @@ public class ForgetMazeNotScript : MonoBehaviour
 						
 					break;
 				}
-				case CellType.Stage:
+				case CellType.Coord:
 				{
-					var numbers = new[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+					var coordIsLetter = _currentCell._coord[0].Equals("?");
+					var characters = coordIsLetter ? "ABCDEFGHIJKLMNOPQRSTUVWXYZ" : "0123456789";
+					var characterArray = characters.Select(c => c.ToString()).ToArray();
+
 					var displayNumbers = _stageText.text.Select(c => c.ToString()).ToArray();
+					var number = coordIsLetter
+						? displayNumbers[displayNumbers.Length - 1][0] - 65
+						: int.Parse(displayNumbers[displayNumbers.Length - 1]);
+					var arrayLength = characterArray.Length;
+					
 					switch (arrowNumber)
 					{
 						case 0: // Up
-							displayNumbers[displayNumbers.Length - 1] = numbers[(int.Parse(displayNumbers[displayNumbers.Length - 1]) + 1) % 10].ToString(); // Set last number to + 1;
+							displayNumbers[displayNumbers.Length - 1] = 
+								characterArray[(number + 1) % arrayLength]; // Set last number to + 1;
 							ns = displayNumbers.Join("");
 							break;
 						case 1: // Right
 							ns = _stageText.text;
-							ns = ns.Length >= 7 ? ns : ns += "0";
+							ns = ns.Length >= 7 ? ns : ns += characterArray[0];
 							break;
 						case 2: // Down
-							displayNumbers[displayNumbers.Length - 1] = numbers[(int.Parse(displayNumbers[displayNumbers.Length - 1]) + 9) % 10].ToString(); // Set last number to - 1;
+							displayNumbers[displayNumbers.Length - 1] =
+								characterArray[(number + arrayLength - 1) % arrayLength]; // Set last number to - 1;
 							ns = displayNumbers.Join("");
 							break;
 						case 3: // Left
@@ -1128,7 +1183,7 @@ public class ForgetMazeNotScript : MonoBehaviour
 							targetCellType = CellType.Wall;
 							break;
 						case "blue":
-							targetCellType = CellType.Stage;
+							targetCellType = CellType.Coord;
 							break;
 						case "magenta":
 							targetCellType = CellType.Maze;
@@ -1204,6 +1259,22 @@ public class ForgetMazeNotScript : MonoBehaviour
 		}
 	}
 
+	IEnumerator TwitchHandleForcedSolve()
+	{
+		StopAllCoroutines();
+		DebugLog("Module forced solve.");
+		module.HandlePass();
+		audio.HandlePlaySoundAtTransform("Solve", transform);
+		ShowArrows(false);
+		submit.gameObject.SetActive(false);
+		submitActive = false;
+		_stageText.text = "";
+		_cellText.text = "";
+		_solved = true;
+		StartCoroutine(SolveAnimation());
+		yield return null;
+	}
+
 	private class FmnStage
 	{
 		public FmnCell[] Cells { get; set; }
@@ -1219,7 +1290,7 @@ public class ForgetMazeNotScript : MonoBehaviour
 		public CellType CellType { get; set; }
 		public Vector2 _coordinate1 { get; set; } // Used by Interactive
 		public string _data { get; set; } // Used by Normal, Solution, Wall
-		public int _stage; // Used by Stage
+		public string[] _coord; // Used by Coord
 
 		// Normal, Solution, Wall
 		public FmnCell(Vector2 coordinate1, string data, CellType cellType)
@@ -1236,12 +1307,12 @@ public class ForgetMazeNotScript : MonoBehaviour
 			CellType = CellType.Interactive;
 		}
 
-		// Stage
-		public FmnCell(Vector2 coordinate1, int stage)
+		// Coord
+		public FmnCell(string data, string[] coord)
 		{
-			CellType = CellType.Stage;
-			_coordinate1 = coordinate1;
-			_stage = stage;
+			CellType = CellType.Coord;
+			_data = data;
+			_coord = coord;
 		}
 
 		// Maze, Negative
@@ -1257,7 +1328,7 @@ public class ForgetMazeNotScript : MonoBehaviour
 		Solution,
 		Interactive,
 		Wall,
-		Stage,
+		Coord,
 		Maze,
 		Negative
 	}

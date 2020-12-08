@@ -327,4 +327,9 @@ public static class GeneralExtensions
 
         return result;
     }
+
+    public static long BackToDecimal(string alphabetNumbers)
+    {
+        return alphabetNumbers.Select((c, i) => (long) (c - 64 * Math.Pow(26, i))).Sum();
+    }
 }

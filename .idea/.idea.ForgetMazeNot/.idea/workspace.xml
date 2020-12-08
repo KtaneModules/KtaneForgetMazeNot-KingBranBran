@@ -21,8 +21,10 @@
   <component name="ChangeListManager">
     <list default="true" id="43fd7866-dafe-4d0e-94a2-ce8f1b58e53d" name="Default Changelist" comment="Added the point system used for TP, just need the specific points.&#10;Fixed bug in debugging.">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ForgetMazeNot/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ForgetMazeNot/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ForgetMazeNot.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ForgetMazeNot.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/ForgetMazeNotScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ForgetMazeNotScript.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Maze.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Maze.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GeneralExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GeneralExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Manual/pdfs/Modules/Forget Maze Not.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/Manual/pdfs/Modules/Forget Maze Not.pdf" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,7 +41,9 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/864B4170-D3A4-4E18-8F41-B725DBF073A8/71/6268477d/Color.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/864B4170-D3A4-4E18-8F41-B725DBF073A8/64/8747e433/Transform.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/ECB5D8E2-0A91-44BC-A4F2-58317D1E56F9/43/72009a67/Single.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/A9627032-6887-4EDC-9774-216522BE7D07/96/e17c56a7/Enumerable.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/864B4170-D3A4-4E18-8F41-B725DBF073A8/01/4f919536/Vector2.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../../Timwi/KtaneMouseInTheMaze/Assets/MouseCamera.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/864B4170-D3A4-4E18-8F41-B725DBF073A8/30/b421350d/Random.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/864B4170-D3A4-4E18-8F41-B725DBF073A8/61/2bbc1457/GameObject.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/A9627032-6887-4EDC-9774-216522BE7D07/40/c04f86d1/Func`5.cs" root0="SKIP_HIGHLIGHTING" />
@@ -54,10 +58,10 @@
       <list>
         <option value="$PROJECT_DIR$/Assets/Maze.cs" />
         <option value="$PROJECT_DIR$/Assets/MazeGenerator.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/GeneralExtensions.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Easing.cs" />
         <option value="$PROJECT_DIR$/Assets/MazeDisplayer.cs" />
         <option value="$PROJECT_DIR$/Assets/TestBoss/Forget The Colors/Scripts/Calculate.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/GeneralExtensions.cs" />
         <option value="$PROJECT_DIR$/Assets/ForgetMazeNotScript.cs" />
       </list>
     </option>
@@ -122,7 +126,8 @@
       <workItem from="1606847195627" duration="670000" />
       <workItem from="1607137677438" duration="3183000" />
       <workItem from="1607236489485" duration="2315000" />
-      <workItem from="1607240630767" duration="407000" />
+      <workItem from="1607240630767" duration="1265000" />
+      <workItem from="1607372975505" duration="16788000" />
     </task>
     <task id="LOCAL-00001" summary="Fix bug where module forgets to ignore bosses.">
       <created>1607137705817</created>
@@ -145,7 +150,14 @@
       <option name="project" value="LOCAL" />
       <updated>1607238269987</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Make sure to only run boss.GetIgnoredModules() once to prevent freezes.">
+      <created>1607241269313</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1607241269313</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -170,17 +182,18 @@
     <MESSAGE value="Fix bug where module forgets to ignore bosses." />
     <MESSAGE value="Added the point system used for TP, just need the specific points.&#10;Fixed bug in debugging." />
     <MESSAGE value="Edit points of minigames to be 1 for Yellow / Blue, 2 for Red, and 3 for Magenta / Cyan. &#10;&#10;Also try to improve performace issues by changing solve animation." />
-    <option name="LAST_COMMIT_MESSAGE" value="Edit points of minigames to be 1 for Yellow / Blue, 2 for Red, and 3 for Magenta / Cyan. &#10;&#10;Also try to improve performace issues by changing solve animation." />
+    <MESSAGE value="Make sure to only run boss.GetIgnoredModules() once to prevent freezes." />
+    <option name="LAST_COMMIT_MESSAGE" value="Make sure to only run boss.GetIgnoredModules() once to prevent freezes." />
   </component>
   <component name="WindowStateProjectService">
     <state x="670" y="202" key="RiderGenerateDialog" timestamp="1605667323633">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="670" y="202" key="RiderGenerateDialog/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1605667323633" />
-    <state x="552" y="258" key="Vcs.Push.Dialog.v2" timestamp="1607238273756">
+    <state x="552" y="258" key="Vcs.Push.Dialog.v2" timestamp="1607241276398">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="552" y="258" key="Vcs.Push.Dialog.v2/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1607238273756" />
+    <state x="552" y="258" key="Vcs.Push.Dialog.v2/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1607241276398" />
     <state x="777" y="439" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1605590648313">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -189,9 +202,9 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="627" y="81" width="666" height="888" key="find.popup/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1605724836442" />
-    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup" timestamp="1606556637045">
+    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup" timestamp="1607383118131">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1606556637045" />
+    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1607383118131" />
   </component>
 </project>
