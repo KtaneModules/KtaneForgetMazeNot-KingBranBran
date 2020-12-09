@@ -21,7 +21,8 @@
   <component name="ChangeListManager">
     <list default="true" id="43fd7866-dafe-4d0e-94a2-ce8f1b58e53d" name="Default Changelist" comment="Added the point system used for TP, just need the specific points.&#10;Fixed bug in debugging.">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ForgetMazeNot/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ForgetMazeNot/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Maze.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Maze.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ForgetMazeNotScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ForgetMazeNotScript.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/MazeDisplayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/MazeDisplayer.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,9 +57,9 @@
         <option value="$PROJECT_DIR$/Assets/Maze.cs" />
         <option value="$PROJECT_DIR$/Assets/MazeGenerator.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Easing.cs" />
-        <option value="$PROJECT_DIR$/Assets/MazeDisplayer.cs" />
         <option value="$PROJECT_DIR$/Assets/TestBoss/Forget The Colors/Scripts/Calculate.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/GeneralExtensions.cs" />
+        <option value="$PROJECT_DIR$/Assets/MazeDisplayer.cs" />
         <option value="$PROJECT_DIR$/Assets/ForgetMazeNotScript.cs" />
       </list>
     </option>
@@ -126,7 +127,8 @@
       <workItem from="1607240630767" duration="1265000" />
       <workItem from="1607372975505" duration="18552000" />
       <workItem from="1607403203013" duration="946000" />
-      <workItem from="1607443615678" duration="1257000" />
+      <workItem from="1607443615678" duration="2465000" />
+      <workItem from="1607485437482" duration="1332000" />
     </task>
     <task id="LOCAL-00001" summary="Fix bug where module forgets to ignore bosses.">
       <created>1607137705817</created>
@@ -170,7 +172,14 @@
       <option name="project" value="LOCAL" />
       <updated>1607444234632</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Organizing gameObjects around.">
+      <created>1607448124943</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1607448124943</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -198,17 +207,18 @@
     <MESSAGE value="Make sure to only run boss.GetIgnoredModules() once to prevent freezes." />
     <MESSAGE value="- Changed the blue cell to be different&#10;- Hopefully fixed the lighting issue for TP&#10;- Fixed performance issues by lowering quality (looks more pixelated)" />
     <MESSAGE value="Make sure that if the module is being run in the actual game, it will disable testing mode if it is on." />
-    <option name="LAST_COMMIT_MESSAGE" value="Make sure that if the module is being run in the actual game, it will disable testing mode if it is on." />
+    <MESSAGE value="Organizing gameObjects around." />
+    <option name="LAST_COMMIT_MESSAGE" value="Organizing gameObjects around." />
   </component>
   <component name="WindowStateProjectService">
     <state x="670" y="202" key="RiderGenerateDialog" timestamp="1605667323633">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="670" y="202" key="RiderGenerateDialog/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1605667323633" />
-    <state x="552" y="258" key="Vcs.Push.Dialog.v2" timestamp="1607444239894">
+    <state x="552" y="258" key="Vcs.Push.Dialog.v2" timestamp="1607448134142">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="552" y="258" key="Vcs.Push.Dialog.v2/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1607444239894" />
+    <state x="552" y="258" key="Vcs.Push.Dialog.v2/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1607448134142" />
     <state x="777" y="439" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1605590648313">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>

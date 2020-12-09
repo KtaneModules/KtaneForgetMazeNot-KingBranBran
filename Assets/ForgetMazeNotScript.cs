@@ -65,6 +65,8 @@ public class ForgetMazeNotScript : MonoBehaviour
 	private Coroutine _displayCoroutine;
 	private Coroutine _animationCoroutine;
 
+	private const float cameraOffset = 20f;
+
 	private void Awake()
 	{
 		_cellText.text = "";
@@ -183,7 +185,7 @@ public class ForgetMazeNotScript : MonoBehaviour
 	
 	private void Update()
 	{
-		if (_init && !testing)
+		if (_init && !testing && !_solved)
 		{
 			var solved = info.GetSolvedModuleNames().Count(m => !_ignoredModules.Contains(m));
 			
@@ -449,7 +451,7 @@ public class ForgetMazeNotScript : MonoBehaviour
 		mazeDisplayer.Init(1, 1, wall, wallMat, camera);
 		mazeDisplayer.StartDrawingMaze(new [,] {{""}});
 		_animationCoroutine = StartCoroutine(DoAnimation(camera.transform, 1.5f, Easing.InOutCubic,
-			new Vector3(0, 0, 0), new Vector3(0, 0, -5),
+			new Vector3(0, 0, 0 + cameraOffset), new Vector3(0, 0, -5 + cameraOffset),
 			new Vector3(0, 0, -270), new Vector3(0, 0, 0)));
 		
 		mazeDisplayer.Init(1, 1, wall, wallMat, camera);
@@ -599,11 +601,11 @@ public class ForgetMazeNotScript : MonoBehaviour
 	IEnumerator SpecialMazeAnimation()
 	{
 		_animationsInProgress++;
-		StartCoroutine(DoAnimation(camera.transform, 1f, Easing.InCubic, new Vector3(0, 0, -5), new Vector3(0, 0, 0)));
+		StartCoroutine(DoAnimation(camera.transform, 1f, Easing.InCubic, new Vector3(0, 0, -5 + cameraOffset), new Vector3(0, 0, 0 + cameraOffset)));
 		yield return new WaitUntil(() => _animationsInProgress == 1);
 		mazeDisplayer.Init(5, 5, wall, wallMat, camera);
 		mazeDisplayer.StartDrawingMaze(_specialMaze);
-		StartCoroutine(DoAnimation(camera.transform, 1f, Easing.OutCubic, new Vector3(_currentPos.x, -_currentPos.y, 0), new Vector3(_currentPos.x, -_currentPos.y, -5)));
+		StartCoroutine(DoAnimation(camera.transform, 1f, Easing.OutCubic, new Vector3(_currentPos.x, -_currentPos.y, 0 + cameraOffset), new Vector3(_currentPos.x, -_currentPos.y, -5 + cameraOffset)));
 		yield return new WaitUntil(() => _animationsInProgress == 1);
 		_animationsInProgress--;
 	}
@@ -664,7 +666,6 @@ public class ForgetMazeNotScript : MonoBehaviour
 					submitActive = false;
 					_specialMazeOn = true;
 					_currentPos = new Vector2(Random.Range(0, 5), Random.Range(0, 5));
-					camera.transform.localPosition = new Vector3(_currentPos.x, -_currentPos.y, -5f);
 					_stageText.text = "";
 					_cellText.text = "■";
 					_specialMaze = MazeGenerator.GenerateMaze(5, 5);
@@ -807,8 +808,8 @@ public class ForgetMazeNotScript : MonoBehaviour
 
 		var duration = 3.9f;
 
-		StartCoroutine(DoAnimation(camera.transform, duration, Easing.InOutSine, new Vector3(goalx, -goaly, 0),
-			new Vector3(goalx, -goaly, -0.25f * _stages - 10)));
+		StartCoroutine(DoAnimation(camera.transform, duration, Easing.InOutSine, new Vector3(goalx, -goaly, 0 + cameraOffset),
+			new Vector3(goalx, -goaly, -0.25f * _stages - 10 + cameraOffset) ));
 
 		float time = 0f;
 		var h = (float) Random.Range(0, 256);
@@ -821,8 +822,6 @@ public class ForgetMazeNotScript : MonoBehaviour
 			h %= 255;
 			yield return null;
 		}
-		
-		mazeDisplayer.StopDrawingMaze();
 		// ReSharper disable once IteratorNeverReturns
 	}
 
@@ -950,7 +949,7 @@ public class ForgetMazeNotScript : MonoBehaviour
 					_animationsInProgress = 0;
 				}
 				
-				_animationCoroutine = StartCoroutine(DoAnimation(camera.transform, .2f, Easing.OutCubic, new Vector3(x, -y, -5), new Vector3(nx, -ny, -5)));
+				_animationCoroutine = StartCoroutine(DoAnimation(camera.transform, .2f, Easing.OutCubic, new Vector3(x, -y, -5 + cameraOffset), new Vector3(nx, -ny, -5 + cameraOffset)));
 				
 				if (_currentPos.x < 0 || _currentPos.x > 4 || _currentPos.y < 0 || _currentPos.y > 4) // Check if they escaped the maze
 				{
@@ -1092,7 +1091,7 @@ public class ForgetMazeNotScript : MonoBehaviour
 		if (_specialMazeOn)
 		{
 			mazeDisplayer.Init(1, 1, wall, wallMat, camera);
-			camera.transform.localPosition = new Vector3(0, 0, -5);
+			camera.transform.localPosition = new Vector3(0, 0, -5 + cameraOffset);
 			_specialMazeOn = false;
 		}
 		
