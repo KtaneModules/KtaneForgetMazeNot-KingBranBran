@@ -822,6 +822,8 @@ public class ForgetMazeNotScript : MonoBehaviour
 			h %= 255;
 			yield return null;
 		}
+		
+		mazeDisplayer.StopDrawingMaze();
 		// ReSharper disable once IteratorNeverReturns
 	}
 
@@ -1263,6 +1265,9 @@ public class ForgetMazeNotScript : MonoBehaviour
 
 	IEnumerator TwitchHandleForcedSolve()
 	{
+		if (_solved)
+			yield break;
+		
 		StopAllCoroutines();
 		DebugLog("Module forced solve.");
 		module.HandlePass();
