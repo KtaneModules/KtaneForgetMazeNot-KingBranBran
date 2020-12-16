@@ -191,6 +191,7 @@ public class ForgetMazeNotScript : MonoBehaviour
 			
 			if (_currentStage != solved)
 			{
+				Reset();
 				NewStage();
 			}
 		}
