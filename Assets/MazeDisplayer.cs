@@ -106,9 +106,9 @@ public class MazeDisplayer : MonoBehaviour
 		}
 	}
 
+	const float offsetForFMzNCamera = 20f;
 	private void DrawWall(float w, float h, int rotation)
 	{
-		float offsetForFMzNCamera = 20f;
 		_wall.transform.localPosition = new Vector3(w, h, offsetForFMzNCamera);
 		_wall.transform.localEulerAngles = new Vector3(0, 0, rotation);
 		var m = new Material(_wallMat); // This is just so that the color updates when this updates.

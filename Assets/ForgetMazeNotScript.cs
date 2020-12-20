@@ -727,7 +727,7 @@ public class ForgetMazeNotScript : MonoBehaviour
 						inputCoord = new Vector2(GeneralExtensions.BackToDecimal(_currentCell._coord[0]) - 1, number);
 					}
 
-					bool badCoords = inputCoord.x > _width - 1 || inputCoord.y > _height - 1;
+					bool badCoords = inputCoord.x > _width - 1 || inputCoord.y > _height - 1 || inputCoord.x < 0 || inputCoord.y < 0;
 
 					string coordWalls = "WHAT?!";
 					if (!badCoords)

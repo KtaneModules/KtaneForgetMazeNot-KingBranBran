@@ -21,8 +21,9 @@
   <component name="ChangeListManager">
     <list default="true" id="43fd7866-dafe-4d0e-94a2-ce8f1b58e53d" name="Default Changelist" comment="Added the point system used for TP, just need the specific points.&#10;Fixed bug in debugging.">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ForgetMazeNot/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ForgetMazeNot/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ForgetMazeNot.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ForgetMazeNot.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/ForgetMazeNotScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ForgetMazeNotScript.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/MazeLight.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/MazeLight.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/MazeDisplayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/MazeDisplayer.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -130,7 +131,9 @@
       <workItem from="1607443615678" duration="2465000" />
       <workItem from="1607485437482" duration="2838000" />
       <workItem from="1607809802512" duration="267000" />
-      <workItem from="1608148743876" duration="345000" />
+      <workItem from="1608148743876" duration="2198000" />
+      <workItem from="1608160325313" duration="1754000" />
+      <workItem from="1608432910815" duration="438000" />
     </task>
     <task id="LOCAL-00001" summary="Fix bug where module forgets to ignore bosses.">
       <created>1607137705817</created>
@@ -195,7 +198,14 @@
       <option name="project" value="LOCAL" />
       <updated>1607810045074</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Hopefully fix lighting issues on TP.&#10;Fix module forgetting to reset while a module solves in interactive mode.">
+      <created>1608149284942</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1608149284943</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -226,17 +236,18 @@
     <MESSAGE value="Organizing gameObjects around." />
     <MESSAGE value="Attept to fix lighting glitch on TP." />
     <MESSAGE value="Stop drawing the maze a few seconds after solving." />
-    <option name="LAST_COMMIT_MESSAGE" value="Stop drawing the maze a few seconds after solving." />
+    <MESSAGE value="Hopefully fix lighting issues on TP.&#10;Fix module forgetting to reset while a module solves in interactive mode." />
+    <option name="LAST_COMMIT_MESSAGE" value="Hopefully fix lighting issues on TP.&#10;Fix module forgetting to reset while a module solves in interactive mode." />
   </component>
   <component name="WindowStateProjectService">
     <state x="670" y="202" key="RiderGenerateDialog" timestamp="1605667323633">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="670" y="202" key="RiderGenerateDialog/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1605667323633" />
-    <state x="552" y="258" key="Vcs.Push.Dialog.v2" timestamp="1607810057966">
+    <state x="552" y="258" key="Vcs.Push.Dialog.v2" timestamp="1608149292102">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="552" y="258" key="Vcs.Push.Dialog.v2/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1607810057966" />
+    <state x="552" y="258" key="Vcs.Push.Dialog.v2/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1608149292102" />
     <state x="777" y="439" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1605590648313">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
