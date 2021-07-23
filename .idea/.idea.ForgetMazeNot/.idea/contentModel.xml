@@ -195,41 +195,6 @@
         <e p="PrivateWhenPlayingAttribute.cs" t="Include" />
         <e p="ReadOnlyWhenPlayingAttribute.cs" t="Include" />
       </e>
-      <e p="Assets\TestBoss" t="Include">
-        <e p="Forget Any Color" t="Include">
-          <e p="Scripts" t="Include">
-            <e p="Arrays.cs" t="Include" />
-            <e p="Calculate.cs" t="Include" />
-            <e p="CoroutineScript.cs" t="Include" />
-            <e p="FACScript.cs" t="Include" />
-            <e p="Figure.cs" t="Include" />
-            <e p="Functions.cs" t="Include" />
-            <e p="Init.cs" t="Include" />
-            <e p="Render.cs" t="Include" />
-            <e p="Rule.cs" t="Include" />
-            <e p="Selectable.cs" t="Include" />
-            <e p="TPScript.cs" t="Include" />
-          </e>
-        </e>
-        <e p="Forget The Colors" t="Include">
-          <e p="Materials" t="Include">
-            <e p="Fonts" t="Include">
-              <e p="OFL.txt" t="Include" />
-            </e>
-          </e>
-          <e p="Scripts" t="Include">
-            <e p="Calculate.cs" t="Include" />
-            <e p="Ease.cs" t="Include" />
-            <e p="FTCScript.cs" t="Include" />
-            <e p="Generate.cs" t="Include" />
-            <e p="HandleSelect.cs" t="Include" />
-            <e p="Init.cs" t="Include" />
-            <e p="ModuleRender.cs" t="Include" />
-            <e p="Rule.cs" t="Include" />
-            <e p="Strings.cs" t="Include" />
-          </e>
-        </e>
-      </e>
       <e p="Assets\TestHarness" t="Include">
         <e p="_THIS_FOLDER_IS_EXCLUDED_FROM_BUNDLES.txt" t="Include" />
         <e p="EdgeworkConfiguration.cs" t="Include" />

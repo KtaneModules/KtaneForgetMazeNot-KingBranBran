@@ -183,7 +183,7 @@ public class ForgetMazeNotScript : MonoBehaviour
 		_animationsInProgress--;
 	}
 	
-	private void Update()
+	private void FixedUpdate()
 	{
 		if (_init && !testing && !_solved)
 		{
@@ -223,7 +223,7 @@ public class ForgetMazeNotScript : MonoBehaviour
 		
 		// Get good dimensions for a random amount of cells ranging from (stages - stages * multiplier)
 		const float minimumRatio = .5f;
-		var possibleCellAmounts = Enumerable.Range(_stages, _stages * (multiplier - 1) + 1).ToArray() // Count is stages * (multiplier - 1) + 1
+		var possibleCellAmounts = Enumerable.Range((int) (_stages * 1.5), _stages + 1).ToArray() // Count is stages * (multiplier - 1) + 1
 			.Where(n => n > 3)
 			.ToArray()
 			.Shuffle()
