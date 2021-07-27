@@ -38,7 +38,8 @@ public class ForgetMazeNotScript : MonoBehaviour
 	private int[] _possibleFactors;
 	private int _width;
 	private int _height;
-	
+	private int totalSolved;
+
 	private string[] _ignoredModules;
 	private string[] _ignoreModuleListRepo;
 	
@@ -187,13 +188,22 @@ public class ForgetMazeNotScript : MonoBehaviour
 	{
 		if (_init && !testing && !_solved)
 		{
-			var solved = info.GetSolvedModuleNames().Count(m => !_ignoredModules.Contains(m));
-			
-			if (_currentStage != solved)
+			var solvedModules = info.GetSolvedModuleNames();
+			int cnt = solvedModules.Count();
+
+			if (cnt != totalSolved)
 			{
-				Reset();
-				NewStage();
+				var solvedModulesNoIgnore = solvedModules.Count(m => !_ignoredModules.Contains(m));
+			
+				if (_currentStage != solvedModulesNoIgnore)
+				{
+					Reset();
+					NewStage();
+				}
+
+				totalSolved = cnt;
 			}
+			
 		}
 	}
 

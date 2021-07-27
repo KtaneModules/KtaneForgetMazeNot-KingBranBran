@@ -19,10 +19,8 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="43fd7866-dafe-4d0e-94a2-ce8f1b58e53d" name="Default Changelist" comment="Added the point system used for TP, just need the specific points.&#10;Fixed bug in debugging.">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.ForgetMazeNot/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ForgetMazeNot/.idea/contentModel.xml" afterDir="false" />
+    <list default="true" id="43fd7866-dafe-4d0e-94a2-ce8f1b58e53d" name="Default Changelist" comment="change Update to FixedUpdate to reduce resources being used">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ForgetMazeNot/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ForgetMazeNot/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ForgetMazeNot.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ForgetMazeNot.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/ForgetMazeNotScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ForgetMazeNotScript.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Maze.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Maze.unity" afterDir="false" />
     </list>
@@ -136,7 +134,8 @@
       <workItem from="1608160325313" duration="1754000" />
       <workItem from="1608432910815" duration="438000" />
       <workItem from="1625253255855" duration="1946000" />
-      <workItem from="1627058345123" duration="1168000" />
+      <workItem from="1627058345123" duration="2404000" />
+      <workItem from="1627357960050" duration="2252000" />
     </task>
     <task id="LOCAL-00001" summary="Fix bug where module forgets to ignore bosses.">
       <created>1607137705817</created>
@@ -208,7 +207,14 @@
       <option name="project" value="LOCAL" />
       <updated>1608149284943</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="change Update to FixedUpdate to reduce resources being used">
+      <created>1627064936579</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1627064936579</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -240,28 +246,13 @@
     <MESSAGE value="Attept to fix lighting glitch on TP." />
     <MESSAGE value="Stop drawing the maze a few seconds after solving." />
     <MESSAGE value="Hopefully fix lighting issues on TP.&#10;Fix module forgetting to reset while a module solves in interactive mode." />
-    <option name="LAST_COMMIT_MESSAGE" value="Hopefully fix lighting issues on TP.&#10;Fix module forgetting to reset while a module solves in interactive mode." />
+    <MESSAGE value="change Update to FixedUpdate to reduce resources being used" />
+    <option name="LAST_COMMIT_MESSAGE" value="change Update to FixedUpdate to reduce resources being used" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="670" y="202" key="RiderGenerateDialog" timestamp="1605667323633">
+    <state x="552" y="258" key="Vcs.Push.Dialog.v2" timestamp="1627064946071">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="670" y="202" key="RiderGenerateDialog/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1605667323633" />
-    <state x="552" y="258" key="Vcs.Push.Dialog.v2" timestamp="1608149292102">
-      <screen x="0" y="0" width="1920" height="1050" />
-    </state>
-    <state x="552" y="258" key="Vcs.Push.Dialog.v2/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1608149292102" />
-    <state x="777" y="439" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1605590648313">
-      <screen x="0" y="0" width="1920" height="1050" />
-    </state>
-    <state x="777" y="439" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1605590648313" />
-    <state x="627" y="81" width="666" height="888" key="find.popup" timestamp="1605724836442">
-      <screen x="0" y="0" width="1920" height="1050" />
-    </state>
-    <state x="627" y="81" width="666" height="888" key="find.popup/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1605724836442" />
-    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup" timestamp="1607383118131">
-      <screen x="0" y="0" width="1920" height="1050" />
-    </state>
-    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1607383118131" />
+    <state x="552" y="258" key="Vcs.Push.Dialog.v2/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1627064946071" />
   </component>
 </project>
