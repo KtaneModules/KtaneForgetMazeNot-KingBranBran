@@ -39,6 +39,7 @@ public class ForgetMazeNotScript : MonoBehaviour
 	private int _width;
 	private int _height;
 	private int totalSolved;
+	private int specialCellsRemaining;
 
 	private string[] _ignoredModules;
 	private string[] _ignoreModuleListRepo;
@@ -474,6 +475,8 @@ public class ForgetMazeNotScript : MonoBehaviour
 				.Where(n => int.Parse(n[n.IndexOf("(") + 1].ToString()) != 0).Join();
 		
 		Debug.LogFormat("Special Stages: {0}", specialStages);
+
+		specialCellsRemaining = _stageData[_currentStage].Cells.Count(c => (int) c.CellType > 1);
 	}
 
 	IEnumerator DisplayStageInfo()
@@ -516,7 +519,7 @@ public class ForgetMazeNotScript : MonoBehaviour
 						break;
 					
 					case CellType.Wall:
-						color = Color.yellow; // A lighter blue.
+						color = Color.yellow;
 						text = CoordinateToString(cell._coordinate1);
 						break;
 					
@@ -560,7 +563,7 @@ public class ForgetMazeNotScript : MonoBehaviour
 		bool badStage = false;
 		
 		// If there are any special cells still left to do.
-		if (_stageData[_currentStage].Cells.Any(c => (int) c.CellType > 1))
+		if (specialCellsRemaining > 0)
 		{
 			DebugLog("You didn't complete all the special cells on stage {0}! Strike.", _currentStage);
 			badStage = true;
@@ -584,6 +587,8 @@ public class ForgetMazeNotScript : MonoBehaviour
 		_displayCoroutine = StartCoroutine(DisplayStageInfo());
 		
 		audio.PlaySoundAtTransform(badStage ? "BadStage" : "Stage", transform);
+		
+		specialCellsRemaining = _stageData[_currentStage].Cells.Count(c => (int) c.CellType > 1);
 	}
 
 	void FinalStage()
@@ -771,7 +776,8 @@ public class ForgetMazeNotScript : MonoBehaviour
 				_minigameSolve = true;
 				audio.PlaySoundAtTransform("Good", transform);
 			}
-			
+
+			specialCellsRemaining--;
 			Reset();
 		}
 
@@ -948,6 +954,7 @@ public class ForgetMazeNotScript : MonoBehaviour
 				DebugLog("Ouch! While doing a {0} cell, you hit a wall trying to go {1} at {2}", color, directions[arrowNumber], CoordinateToString(_currentPos));
 				audio.PlaySoundAtTransform("Strike", transform);
 				module.HandleStrike();
+				specialCellsRemaining--;
 				StartCoroutine(WaitForAnimationThenReset());
 				return;
 			}
@@ -969,6 +976,7 @@ public class ForgetMazeNotScript : MonoBehaviour
 					_disableArrows = true;
 					_minigameSolve = true;
 					audio.PlaySoundAtTransform("Good", transform);
+					specialCellsRemaining--;
 					StartCoroutine(WaitForAnimationThenReset());
 				}
 			}

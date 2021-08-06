@@ -19,7 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="43fd7866-dafe-4d0e-94a2-ce8f1b58e53d" name="Default Changelist" comment="change Update to FixedUpdate to reduce resources being used">
+    <list default="true" id="43fd7866-dafe-4d0e-94a2-ce8f1b58e53d" name="Default Changelist" comment="Only check amount of solved modules no ignore when the amount of solve modules changes, to improve performance.">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ForgetMazeNot/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ForgetMazeNot/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/ForgetMazeNotScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ForgetMazeNotScript.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Maze.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Maze.unity" afterDir="false" />
@@ -135,7 +135,8 @@
       <workItem from="1608432910815" duration="438000" />
       <workItem from="1625253255855" duration="1946000" />
       <workItem from="1627058345123" duration="2404000" />
-      <workItem from="1627357960050" duration="2252000" />
+      <workItem from="1627357960050" duration="4196000" />
+      <workItem from="1628219010552" duration="1656000" />
     </task>
     <task id="LOCAL-00001" summary="Fix bug where module forgets to ignore bosses.">
       <created>1607137705817</created>
@@ -214,7 +215,14 @@
       <option name="project" value="LOCAL" />
       <updated>1627064936579</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Only check amount of solved modules no ignore when the amount of solve modules changes, to improve performance.">
+      <created>1627408142881</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1627408142881</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -247,12 +255,17 @@
     <MESSAGE value="Stop drawing the maze a few seconds after solving." />
     <MESSAGE value="Hopefully fix lighting issues on TP.&#10;Fix module forgetting to reset while a module solves in interactive mode." />
     <MESSAGE value="change Update to FixedUpdate to reduce resources being used" />
-    <option name="LAST_COMMIT_MESSAGE" value="change Update to FixedUpdate to reduce resources being used" />
+    <MESSAGE value="Only check amount of solved modules no ignore when the amount of solve modules changes, to improve performance." />
+    <option name="LAST_COMMIT_MESSAGE" value="Only check amount of solved modules no ignore when the amount of solve modules changes, to improve performance." />
   </component>
   <component name="WindowStateProjectService">
-    <state x="552" y="258" key="Vcs.Push.Dialog.v2" timestamp="1627064946071">
+    <state x="640" y="261" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1628220125936">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="552" y="258" key="Vcs.Push.Dialog.v2/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1627064946071" />
+    <state x="640" y="261" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1628220125936" />
+    <state x="552" y="258" key="Vcs.Push.Dialog.v2" timestamp="1627408147854">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="552" y="258" key="Vcs.Push.Dialog.v2/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1627408147854" />
   </component>
 </project>
