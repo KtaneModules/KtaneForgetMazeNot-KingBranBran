@@ -54,8 +54,9 @@ public class ForgetMazeNotScript : MonoBehaviour
 	private bool _final;
 	private bool _strikeInFinal;
 	private bool _interactive;
-	private bool arrowsActive = false;
-	private bool submitActive = false;
+	private bool arrowsActive;
+	private bool submitActive;
+	private bool _focused;
 	
 	private string[,] _maze;
 	private readonly List<FmnStage> _stageData = new List<FmnStage>();
@@ -125,6 +126,9 @@ public class ForgetMazeNotScript : MonoBehaviour
 				return false;
 			};
 		}
+
+		GetComponent<KMSelectable>().OnFocus += () => { _focused = true; };
+		GetComponent<KMSelectable>().OnDefocus += () => { _focused = false; };
 	}
 
 	private int _animationsInProgress = 0;
@@ -206,6 +210,16 @@ public class ForgetMazeNotScript : MonoBehaviour
 			}
 			
 		}
+	}
+
+	private void Update()
+	{
+		if (!_focused) return;
+		if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) ArrowButtonPressed(0);
+		if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)) ArrowButtonPressed(1);
+		if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)) ArrowButtonPressed(2);
+		if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)) ArrowButtonPressed(3);
+		if (Input.GetKeyDown(KeyCode.Space)) SubmitButtonPressed();
 	}
 
 	void Setup()
@@ -626,7 +640,7 @@ public class ForgetMazeNotScript : MonoBehaviour
 		_animationsInProgress--;
 	}
 
-	IEnumerator ShowArrowsAfterAnimations()
+	IEnumerator ShowArrowsAfterAnimations() 
 	{
 		yield return new WaitUntil(() => _animationsInProgress == 0);
 		ShowArrows(true);
@@ -634,6 +648,8 @@ public class ForgetMazeNotScript : MonoBehaviour
 	
 	void SubmitButtonPressed()
 	{
+		if (!submit.gameObject.activeSelf) return;
+		
 		audio.PlaySoundAtTransform("Button", transform);
 		if (_solved)
 			return;
@@ -848,6 +864,8 @@ public class ForgetMazeNotScript : MonoBehaviour
 	private Coroutine _arrowCoroutine;
 	void ArrowButtonPressed(int arrowNumber)
 	{
+		if (!transform.Find("Arrows").gameObject.activeSelf) return;
+
 		audio.PlaySoundAtTransform("Button", transform);
 		if (_solved || _disableArrows)
 			return;

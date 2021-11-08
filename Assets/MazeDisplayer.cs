@@ -111,7 +111,7 @@ public class MazeDisplayer : MonoBehaviour
 	{
 		_wall.transform.localPosition = new Vector3(w, h, offsetForFMzNCamera);
 		_wall.transform.localEulerAngles = new Vector3(0, 0, rotation);
-		var m = new Material(_wallMat); // This is just so that the color updates when this updates.
+		var m = _wallMat; // This is just so that the color updates when this updates.
 
 		Graphics.DrawMesh(
 			_wallMesh,
