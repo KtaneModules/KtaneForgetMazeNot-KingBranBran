@@ -17,6 +17,13 @@ MonoBehaviour:
   description: 'Put together a maze throughout the bomb and navigate it at the end!
 
 
+    This module now has keyboard functionality!
+
+    WASD / Arrow Keys: Move
+
+    Space: Press the center button
+
+
     HTML: https://ktane.timwi.de/HTML/Forget%20Maze%20Not.html
 
     PDF: https://ktane.timwi.de/PDF/Forget%20Maze%20Not.pdf

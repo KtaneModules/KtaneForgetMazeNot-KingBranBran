@@ -239,12 +239,12 @@ public class ForgetMazeNotScript : MonoBehaviour
 		
 		_stages = testing ? modules : info.GetSolvableModuleNames().Count(m => !_ignoredModules.Contains(m) && !m.Equals("Forget Maze Not"));
 
-		var multiplier = 3;
+		// var multiplier = 3;
 
-		if (_stages < 2)
-		{
-			multiplier = 4;
-		}
+		// if (_stages < 2)
+		// {
+		// 	multiplier = 4;
+		// }
 		
 		// Get good dimensions for a random amount of cells ranging from (stages - stages * multiplier)
 		const float minimumRatio = .5f;
@@ -313,15 +313,17 @@ public class ForgetMazeNotScript : MonoBehaviour
 
 		stageCellAmounts = stageCellAmounts.Shuffle();
 
-		var solutionCellAmount = (_stages - 1) / 5 + 1;
-		var stageNumbers = Enumerable.Range(0, _stages).ToList().Shuffle();
-		List<int> solutionStages = new List<int>();
+		// var solutionCellAmount = (_stages - 1) / 5 + 1;
+		// var stageNumbers = Enumerable.Range(0, _stages).ToList().Shuffle();
+		// List<int> solutionStages = new List<int>();
 
-		for (var i = 0; i < solutionCellAmount; i++)
-		{
-			solutionStages.Add(stageNumbers.First());
-			stageNumbers.RemoveAt(0);
-		}
+		// for (var i = 0; i < solutionCellAmount; i++)
+		// {
+		// 	solutionStages.Add(stageNumbers.First());
+		// 	stageNumbers.RemoveAt(0);
+		// }
+
+		var solutionCoordinates = GenerateSolution();
 
 		// Generate the stage info
 		for (int currentStage = 0; currentStage < _stages; currentStage++)
@@ -331,16 +333,13 @@ public class ForgetMazeNotScript : MonoBehaviour
 
 			// Add the normal / solution cells
 			var stageCells = new List<FmnCell>();
-			var anySolutionCells = false;
 			for (int c = 0; c < stageCellAmount; c++)
 			{
 				var coords = coordinateList[0].Split().Select(int.Parse).ToArray();
 				coordinateList.RemoveAt(0);
 				var x = coords[0];
 				var y = coords[1];
-				var ct = solutionStages.Contains(currentStage) && !anySolutionCells ? CellType.Solution : CellType.Normal; // Add solution cell if solution stage and no solution cell in SAME STAGE already.
-				if (ct == CellType.Solution && !anySolutionCells)
-					anySolutionCells = true;
+				var ct = solutionCoordinates.Contains(x + y * _width) ? CellType.Solution : CellType.Normal; // Add solution cell if solution stage and no solution cell in SAME STAGE already.
 				
 				stageCells.Add(new FmnCell(new Vector2(x, y), _maze[x, y], ct));
 
@@ -429,6 +428,71 @@ public class ForgetMazeNotScript : MonoBehaviour
 		// We are done setting up finally :D
 		DebugStageData();
 		Init();
+	}
+
+	// Generate a solution by wandering through the maze and placing solutions.
+	List<int> GenerateSolution() {
+		List<int> solutions = new List<int>();
+		var solutionCellAmount = (_stages - 1) / 5 + 1;
+		int x = Random.Range(0, _width);
+		int y = Random.Range(0, _height);
+
+		for (int i = 0; i < solutionCellAmount; i++) {
+			int steps = Random.Range(5, 11);
+			int solution = TakeSteps(steps, x, y, ' ');
+			while (solution < 0) solution = TakeSteps(--steps, x, y, ' ');
+			solutions.Add(solution);
+			x = solution % _width;
+			y = solution / _width;
+		}
+		return solutions;
+	}
+
+	// Recursively find a random amount of moves from a point in the maze so that there is no backtracking.
+	int TakeSteps(int amount, int x, int y, char disable) {
+		if (amount == 0) return x + _width * y; // We successfully took the amount of steps required!
+		var possibleDirections = _maze[x, y].ToList().Shuffle();
+		possibleDirections.Remove(disable);
+
+		foreach (var c in possibleDirections) {
+			int nx, ny;
+			switch (c) {
+				case 'N':
+					nx = x;
+					ny = y-1;
+					break;
+				case 'S':
+					nx = x;
+					ny = y+1;
+					break;
+				case 'E':
+					nx = x+1;
+					ny = y;
+					break;
+				default:
+					nx = x-1;
+					ny = y;
+					break;
+			}
+			int result = TakeSteps(--amount, nx, ny, opposite(c)); // Disable c so we cannot go backwards and count that as a step.
+			if (result >= 0) return result; // If we found a result do not take anymore steps.
+		}
+		return -1; // We hit some kind of dead end so try again sometime before.
+	}
+
+	char opposite(char c) {
+		switch (c) {
+			case 'N':
+				return 'S';
+			case 'S':
+				return 'N';
+			case 'E':
+				return 'W';
+			case 'W':
+				return 'E';
+			default:
+				return ' ';
+		}
 	}
 
 	// This is to prevent an error from solving right as the bomb starts.
