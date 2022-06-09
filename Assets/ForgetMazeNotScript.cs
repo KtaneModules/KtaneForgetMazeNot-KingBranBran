@@ -333,19 +333,21 @@ public class ForgetMazeNotScript : MonoBehaviour
 
 			// Add the normal / solution cells
 			var stageCells = new List<FmnCell>();
+			var usedSolutionCell = false;
 			for (int c = 0; c < stageCellAmount; c++)
 			{
 				var coords = coordinateList[0].Split().Select(int.Parse).ToArray();
 				coordinateList.RemoveAt(0);
 				var x = coords[0];
 				var y = coords[1];
-				var ct = solutionCoordinates.Contains(x + y * _width) ? CellType.Solution : CellType.Normal; // Add solution cell if solution stage and no solution cell in SAME STAGE already.
+				var ct = solutionCoordinates.Contains(x + y * _width) && !usedSolutionCell ? CellType.Solution : CellType.Normal; // Add solution cell if solution stage and no solution cell in SAME STAGE already.
 				
 				stageCells.Add(new FmnCell(new Vector2(x, y), _maze[x, y], ct));
 
 				if (ct == CellType.Solution)
 				{
 					_solution.Add(CoordinateToString(new Vector2(x, y)));
+					usedSolutionCell = true;
 				}
 			}
 
