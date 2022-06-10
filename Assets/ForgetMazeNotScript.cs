@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -327,8 +326,8 @@ public class ForgetMazeNotScript : MonoBehaviour
 
 		// remove all coordinates in the list that are solutions
 		coordinateList = coordinateList.Where(c => {
-			var coords = coordinateList[0].Split().Select(int.Parse).ToArray();
-			var coordNumber = coords[0] + coords[1] * _width;
+			var coords = c.Split().Select(int.Parse).ToArray();
+			var coordNumber = coords[0] + _width * coords[1];
 			return !solutionCoordinates.Contains(coordNumber);
 		}).ToList();
 
@@ -336,25 +335,8 @@ public class ForgetMazeNotScript : MonoBehaviour
 		// Generate the stage info
 		for (int currentStage = 0; currentStage < _stages; currentStage++)
 		{
-			var stageCellAmount = stageCellAmounts.First();
-
-			// If there is a solution cell on this stage, it is already taken care of below.
-			if (offsetForSolutionCells < 1) stageCellAmount -= 1;
-
-			stageCellAmounts.RemoveAt(0);
-
-			// Add the normal cells
 			var stageCells = new List<FmnCell>();
-			for (int c = 0; c < stageCellAmount; c++)
-			{
-				var coords = coordinateList[0].Split().Select(int.Parse).ToArray();
-				coordinateList.RemoveAt(0);
-				var x = coords[0];
-				var y = coords[1];
-				var ct = CellType.Normal; // Add solution cell if solution stage and no solution cell in SAME STAGE already.
-				
-				stageCells.Add(new FmnCell(new Vector2(x, y), _maze[x, y], ct));
-			}
+			var stageCellAmount = stageCellAmounts.First();
 
 			// Every few stages, we will add a solution cell, using offsetForSolutionCells to keep track of this, it should never overflow i think
 			if (offsetForSolutionCells < 1 && solutionCoordinates.Any()) {
@@ -366,9 +348,24 @@ public class ForgetMazeNotScript : MonoBehaviour
 				var ct = CellType.Solution;
 
 				stageCells.Add(new FmnCell(new Vector2(x, y), _maze[x, y], ct));
+				stageCellAmount -= 1;
 				Debug.LogFormat("I generated a solution at stage {0}", currentStage);
 			} else {
 				offsetForSolutionCells--;
+			}
+
+			stageCellAmounts.RemoveAt(0);
+
+			// Add the normal cells
+			for (int c = 0; c < stageCellAmount; c++)
+			{
+				var coords = coordinateList[0].Split().Select(int.Parse).ToArray();
+				coordinateList.RemoveAt(0);
+				var x = coords[0];
+				var y = coords[1];
+				var ct = CellType.Normal;
+				
+				stageCells.Add(new FmnCell(new Vector2(x, y), _maze[x, y], ct));
 			}
 
 			var amountOfSpecialCells = Random.Range(0, 2) == 0 ? 1 : 0;
@@ -461,8 +458,8 @@ public class ForgetMazeNotScript : MonoBehaviour
 
 		for (int i = 0; i < solutionCellAmount; i++) {
 			int steps = Random.Range(5, 11);
-			int solution = TakeSteps(steps, x, y, ' ');
-			while (solution < 0) solution = TakeSteps(--steps, x, y, ' ');
+			int solution = TakeSteps(steps, x, y, ' ', solutions);
+			while (solution < 0) solution = TakeSteps(--steps, x, y, ' ', solutions);
 			solutions.Add(solution);
 			x = solution % _width;
 			y = solution / _width;
@@ -471,7 +468,7 @@ public class ForgetMazeNotScript : MonoBehaviour
 	}
 
 	// Recursively find a random amount of moves from a point in the maze so that there is no backtracking.
-	int TakeSteps(int amount, int x, int y, char disable) {
+	int TakeSteps(int amount, int x, int y, char disable, List<int> solutions) {
 		if (amount == 0) return x + _width * y; // We successfully took the amount of steps required!
 		var possibleDirections = _maze[x, y].ToList().Shuffle();
 		possibleDirections.Remove(disable);
@@ -496,8 +493,8 @@ public class ForgetMazeNotScript : MonoBehaviour
 					ny = y;
 					break;
 			}
-			int result = TakeSteps(--amount, nx, ny, opposite(c)); // Disable c so we cannot go backwards and count that as a step.
-			if (result >= 0) return result; // If we found a result do not take anymore steps.
+			int result = TakeSteps(--amount, nx, ny, opposite(c), solutions); // Disable c so we cannot go backwards and count that as a step.
+			if (result >= 0 && !solutions.Contains(result)) return result; // If we found a result do not take anymore steps.
 		}
 		return -1; // We hit some kind of dead end so try again sometime before.
 	}
