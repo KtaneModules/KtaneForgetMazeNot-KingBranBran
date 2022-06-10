@@ -19,15 +19,9 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="43fd7866-dafe-4d0e-94a2-ce8f1b58e53d" name="Default Changelist" comment="Fixed bug where when another module is solved and there is a interactive cell currently open, the module wouldn't strike.">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.ForgetMazeNot/.idea/contentModel.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.ForgetMazeNot/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ForgetMazeNot/.idea/indexLayout.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.ForgetMazeNot/.idea/modules.xml" beforeDir="false" />
+    <list default="true" id="43fd7866-dafe-4d0e-94a2-ce8f1b58e53d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ForgetMazeNot/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ForgetMazeNot/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.ForgetMazeNot/riderModule.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ForgetMazeNotScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ForgetMazeNotScript.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Maze.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Maze.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/MazeDisplayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/MazeDisplayer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Editor/Resources/ModConfig.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Editor/Resources/ModConfig.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -147,7 +141,8 @@
       <workItem from="1627058345123" duration="2404000" />
       <workItem from="1627357960050" duration="4196000" />
       <workItem from="1628219010552" duration="3454000" />
-      <workItem from="1636328266891" duration="1861000" />
+      <workItem from="1636328266891" duration="4524000" />
+      <workItem from="1638694823010" duration="597000" />
     </task>
     <task id="LOCAL-00001" summary="Fix bug where module forgets to ignore bosses.">
       <created>1607137705817</created>
@@ -240,7 +235,14 @@
       <option name="project" value="LOCAL" />
       <updated>1628221435271</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Added WASD / Arrow Key functionality.&#10;&#10;WASD/Arrow Keys to move, Space to click the middle button.">
+      <created>1636330471816</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1636330471816</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -276,6 +278,7 @@
     <MESSAGE value="change Update to FixedUpdate to reduce resources being used" />
     <MESSAGE value="Only check amount of solved modules no ignore when the amount of solve modules changes, to improve performance." />
     <MESSAGE value="Fixed bug where when another module is solved and there is a interactive cell currently open, the module wouldn't strike." />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed bug where when another module is solved and there is a interactive cell currently open, the module wouldn't strike." />
+    <MESSAGE value="Added WASD / Arrow Key functionality.&#10;&#10;WASD/Arrow Keys to move, Space to click the middle button." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added WASD / Arrow Key functionality.&#10;&#10;WASD/Arrow Keys to move, Space to click the middle button." />
   </component>
 </project>

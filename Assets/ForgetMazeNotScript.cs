@@ -325,30 +325,50 @@ public class ForgetMazeNotScript : MonoBehaviour
 
 		var solutionCoordinates = GenerateSolution();
 
+		// remove all coordinates in the list that are solutions
+		coordinateList = coordinateList.Where(c => {
+			var coords = coordinateList[0].Split().Select(int.Parse).ToArray();
+			var coordNumber = coords[0] + coords[1] * _width;
+			return !solutionCoordinates.Contains(coordNumber);
+		}).ToList();
+
+		var offsetForSolutionCells = Random.Range(0, _stages % 5 + 1);
 		// Generate the stage info
 		for (int currentStage = 0; currentStage < _stages; currentStage++)
 		{
 			var stageCellAmount = stageCellAmounts.First();
+
+			// If there is a solution cell on this stage, it is already taken care of below.
+			if (offsetForSolutionCells < 1) stageCellAmount -= 1;
+
 			stageCellAmounts.RemoveAt(0);
 
-			// Add the normal / solution cells
+			// Add the normal cells
 			var stageCells = new List<FmnCell>();
-			var usedSolutionCell = false;
 			for (int c = 0; c < stageCellAmount; c++)
 			{
 				var coords = coordinateList[0].Split().Select(int.Parse).ToArray();
 				coordinateList.RemoveAt(0);
 				var x = coords[0];
 				var y = coords[1];
-				var ct = solutionCoordinates.Contains(x + y * _width) && !usedSolutionCell ? CellType.Solution : CellType.Normal; // Add solution cell if solution stage and no solution cell in SAME STAGE already.
+				var ct = CellType.Normal; // Add solution cell if solution stage and no solution cell in SAME STAGE already.
 				
 				stageCells.Add(new FmnCell(new Vector2(x, y), _maze[x, y], ct));
+			}
 
-				if (ct == CellType.Solution)
-				{
-					_solution.Add(CoordinateToString(new Vector2(x, y)));
-					usedSolutionCell = true;
-				}
+			// Every few stages, we will add a solution cell, using offsetForSolutionCells to keep track of this, it should never overflow i think
+			if (offsetForSolutionCells < 1 && solutionCoordinates.Any()) {
+				var solution = solutionCoordinates.First();
+				solutionCoordinates.RemoveAt(0);
+				offsetForSolutionCells += Random.Range(1, 6);
+				var x = solution % _width;
+				var y = solution / _width;
+				var ct = CellType.Solution;
+
+				stageCells.Add(new FmnCell(new Vector2(x, y), _maze[x, y], ct));
+				Debug.LogFormat("I generated a solution at stage {0}", currentStage);
+			} else {
+				offsetForSolutionCells--;
 			}
 
 			var amountOfSpecialCells = Random.Range(0, 2) == 0 ? 1 : 0;
