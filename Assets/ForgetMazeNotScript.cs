@@ -43,7 +43,7 @@ public class ForgetMazeNotScript : MonoBehaviour
 	private string[] _ignoredModules;
 	private string[] _ignoreModuleListRepo;
 	
-	private readonly List<string> _solution = new List<string>();
+	private List<string> _solution = new List<string>();
 	
 	private static int _moduleCounter = 1;
 	private int _moduleNumber;
@@ -323,6 +323,7 @@ public class ForgetMazeNotScript : MonoBehaviour
 		// }
 
 		var solutionCoordinates = GenerateSolution();
+		_solution = solutionCoordinates.Select(s => CoordinateToString(new Vector2(s % 5, s / 5))).ToList();
 
 		// remove all coordinates in the list that are solutions
 		coordinateList = coordinateList.Where(c => {
@@ -929,7 +930,7 @@ public class ForgetMazeNotScript : MonoBehaviour
 
 		float time = 0f;
 		var h = (float) Random.Range(0, 256);
-		while (time < duration)
+		while (true)
 		{
 			time += Time.deltaTime;
 			time %= 5f * 2;
@@ -938,9 +939,6 @@ public class ForgetMazeNotScript : MonoBehaviour
 			h %= 255;
 			yield return null;
 		}
-		
-		mazeDisplayer.StopDrawingMaze();
-		// ReSharper disable once IteratorNeverReturns
 	}
 
 	private bool _disableArrows = false;
