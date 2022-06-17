@@ -238,16 +238,16 @@ public class ForgetMazeNotScript : MonoBehaviour
 		
 		_stages = testing ? modules : info.GetSolvableModuleNames().Count(m => !_ignoredModules.Contains(m) && !m.Equals("Forget Maze Not"));
 
-		// var multiplier = 3;
+		var multiplier = 3;
 
-		// if (_stages < 2)
-		// {
-		// 	multiplier = 4;
-		// }
+		if (_stages < 2)
+		{
+			multiplier = 4;
+		}
 		
 		// Get good dimensions for a random amount of cells ranging from (stages - stages * multiplier)
 		const float minimumRatio = .5f;
-		var possibleCellAmounts = Enumerable.Range((int) (_stages * 1.5), _stages + 1).ToArray() // Count is stages * (multiplier - 1) + 1
+		var possibleCellAmounts = Enumerable.Range((int) (_stages * 1.5), _stages * multiplier - (int) (_stages * 1.5)).ToArray() // Count is stages * (multiplier - 1) + 1
 			.Where(n => n > 3)
 			.ToArray()
 			.Shuffle()
@@ -276,7 +276,7 @@ public class ForgetMazeNotScript : MonoBehaviour
 		// Randomly assign maze height / width
 		var rnd = Random.Range(0, 2);
 		_possibleFactors = _possibleFactors.Shuffle();
-
+		
 		var one = _possibleFactors[0];
 		var two =_cells / _possibleFactors[0];
 
@@ -332,7 +332,7 @@ public class ForgetMazeNotScript : MonoBehaviour
 			return !solutionCoordinates.Contains(coordNumber);
 		}).ToList();
 
-		var offsetForSolutionCells = Random.Range(0, _stages % 5 + 1);
+		var offsetForSolutionCells = Random.Range(0, _stages % 5);
 		// Generate the stage info
 		for (int currentStage = 0; currentStage < _stages; currentStage++)
 		{
@@ -358,6 +358,7 @@ public class ForgetMazeNotScript : MonoBehaviour
 			stageCellAmounts.RemoveAt(0);
 
 			// Add the normal cells
+			DebugLog("Stage Cell Amount: {0}\n Coordinate List Amount: {1}", stageCellAmount, coordinateList.Count());
 			for (int c = 0; c < stageCellAmount; c++)
 			{
 				var coords = coordinateList[0].Split().Select(int.Parse).ToArray();
