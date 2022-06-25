@@ -323,7 +323,8 @@ public class ForgetMazeNotScript : MonoBehaviour
 		// }
 
 		var solutionCoordinates = GenerateSolution();
-		_solution = solutionCoordinates.Select(s => CoordinateToString(new Vector2(s % 5, s / 5))).ToList();
+		_solution = solutionCoordinates.Select(s => CoordinateToString(new Vector2(s % _width, s / _width))).ToList();
+		DebugLog("The solution atm is {0}", _solution.Join());
 
 		// remove all coordinates in the list that are solutions
 		coordinateList = coordinateList.Where(c => {
@@ -358,7 +359,6 @@ public class ForgetMazeNotScript : MonoBehaviour
 			stageCellAmounts.RemoveAt(0);
 
 			// Add the normal cells
-			DebugLog("Stage Cell Amount: {0}\n Coordinate List Amount: {1}", stageCellAmount, coordinateList.Count());
 			for (int c = 0; c < stageCellAmount; c++)
 			{
 				var coords = coordinateList[0].Split().Select(int.Parse).ToArray();
