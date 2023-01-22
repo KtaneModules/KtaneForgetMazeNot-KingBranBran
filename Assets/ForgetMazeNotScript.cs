@@ -82,7 +82,6 @@ public class ForgetMazeNotScript : MonoBehaviour
 	{
 		_moduleNumber = _moduleCounter++;
 
-		_ignoreModuleListRepo = boss.GetIgnoredModules(module);
 		
 		if (_light == null)
 		{
@@ -109,7 +108,8 @@ public class ForgetMazeNotScript : MonoBehaviour
 		surfaceMat.SetTexture("_MainTex", renderTexture);
 		surfaceMat.color = Color.white;
 
-		module.OnActivate += Setup;
+		StartCoroutine(Setup());
+		module.OnActivate += Init;
 		submit.OnInteract += () =>
 		{
 			SubmitButtonPressed();
@@ -186,6 +186,7 @@ public class ForgetMazeNotScript : MonoBehaviour
 			animate.localScale = endScale.Value;
 		
 		_animationsInProgress--;
+		_init = true;
 	}
 	
 	private void FixedUpdate()
@@ -221,20 +222,19 @@ public class ForgetMazeNotScript : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.Space)) SubmitButtonPressed();
 	}
 
-	void Setup()
+	IEnumerator Setup()
 	{
-		_ignoredModules = info.GetSolvableModuleNames()
-			.Where(m => _ignoreModuleListRepo.Contains(m) || _ignoreModulesList.Contains(m)).ToArray();
-		
-		if (!testing && _ignoredModules.Length == info.GetSolvableModuleNames().Count)
+		yield return null;
+		_ignoreModuleListRepo = boss.GetIgnoredModules(module);
+		_ignoredModules = info.GetSolvableModuleNames().Where(m => _ignoreModuleListRepo.Contains(m) || _ignoreModulesList.Contains(m)).ToArray();
+		if (!testing && info.GetSolvableModuleNames().Count(a => !_ignoredModules.Contains(a)) <= 1)
 		{
 			_solved = true;
 			DebugLog("The maze was so small that the module solved itself.");
 			StartCoroutine(WaitABitThenSolve());
-			return;
+			yield break;
 		}
 
-		_init = true;
 		
 		_stages = testing ? modules : info.GetSolvableModuleNames().Count(m => !_ignoredModules.Contains(m) && !m.Equals("Forget Maze Not"));
 
@@ -448,7 +448,6 @@ public class ForgetMazeNotScript : MonoBehaviour
 		
 		// We are done setting up finally :D
 		DebugStageData();
-		Init();
 	}
 
 	// Generate a solution by wandering through the maze and placing solutions.
@@ -558,6 +557,8 @@ public class ForgetMazeNotScript : MonoBehaviour
 
 	void Init()
 	{
+		if (_solved)
+			return;
 		audio.PlaySoundAtTransform("StartUp", transform);
 		mazeDisplayer.Init(1, 1, wall, wallMat, camera);
 		mazeDisplayer.StartDrawingMaze(new [,] {{""}});
@@ -1223,8 +1224,8 @@ public class ForgetMazeNotScript : MonoBehaviour
 		}
 
 		// Remove from the stage list even if they striked.
-		_stageData[_currentStage].Cells = _stageData[_currentStage].Cells
-			.Where(c => c.CellType != _currentCell.CellType).ToArray();
+		if (_currentCell != null)
+			_stageData[_currentStage].Cells = _stageData[_currentStage].Cells.Where(c => c.CellType != _currentCell.CellType).ToArray();
 
 		_interactive = false;
 		
