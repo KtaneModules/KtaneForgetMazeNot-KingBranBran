@@ -288,6 +288,8 @@ public class ForgetMazeNotScript : MonoBehaviour
 		DebugLog("The maze has a size of {0} * {1}", _width, _height);
 		DebugLog("Maze:\n{0}", MazeToString(_maze));
 
+		tryAgain:
+		_stageData.Clear();
 		var coordinateList = new List<string>();
 		// Get an array of coordinates for maze
 		for (int w = 0; w < _width; w++)
@@ -324,7 +326,6 @@ public class ForgetMazeNotScript : MonoBehaviour
 
 		var solutionCoordinates = GenerateSolution();
 		_solution = solutionCoordinates.Select(s => CoordinateToString(new Vector2(s % _width, s / _width))).ToList();
-		DebugLog("The solution atm is {0}", _solution.Join());
 
 		// remove all coordinates in the list that are solutions
 		coordinateList = coordinateList.Where(c => {
@@ -351,7 +352,6 @@ public class ForgetMazeNotScript : MonoBehaviour
 
 				stageCells.Add(new FmnCell(new Vector2(x, y), _maze[x, y], ct));
 				stageCellAmount -= 1;
-				Debug.LogFormat("I generated a solution at stage {0}", currentStage);
 			} else {
 				offsetForSolutionCells--;
 			}
@@ -361,6 +361,11 @@ public class ForgetMazeNotScript : MonoBehaviour
 			// Add the normal cells
 			for (int c = 0; c < stageCellAmount; c++)
 			{
+				if (coordinateList.Count == 0)
+				{
+					// A stage had multiple solution cells... fuck it start over.
+					goto tryAgain;
+				}
 				var coords = coordinateList[0].Split().Select(int.Parse).ToArray();
 				coordinateList.RemoveAt(0);
 				var x = coords[0];
